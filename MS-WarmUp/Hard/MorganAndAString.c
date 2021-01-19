@@ -55,9 +55,10 @@ char* morganAndString(char const* stra, char const* strb) {
         if (strcmp(pa, pb) < 0) *pr++ = *pa++;
         else *pr++ = *pb++;
     
-    *pr = a[alen] = b[blen] = 0; /* for strcat */
-    strcat(pr, pa);
-    strcat(pr, pb);
+    if (*pa != sentinel)
+        memcpy(pr, pa, alen - (pa - a));
+    else
+        memcpy(pr, pb, blen - (pb - b));
     free(a);
     free(b);
     
