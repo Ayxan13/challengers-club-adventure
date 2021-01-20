@@ -1,3 +1,4 @@
+// https://www.hackerrank.com/challenges/migratory-birds/problem
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -6,42 +7,41 @@ string ltrim(const string &);
 string rtrim(const string &);
 vector<string> split(const string &);
 
-// Complete the bonAppetit function below.
-void bonAppetit(vector<int> const& bill, int k, int b) {
-  printf((accumulate(bill.begin(), bill.end(), 0) - bill[k]) / 2 == b
-             ? "Bon Appetit\n": "%d\n", bill[k] / 2);
+// Complete the migratoryBirds function below.
+int migratoryBirds(vector<int> arr) {
+    int cnt[5]{};
+    for (auto const elm : arr)
+        ++cnt[elm-1];
+    return max_element(cnt, cnt+5)-cnt+1;
 }
 
 int main()
 {
-    string nk_temp;
-    getline(cin, nk_temp);
+    ofstream fout(getenv("OUTPUT_PATH"));
 
-    vector<string> nk = split(rtrim(nk_temp));
+    string arr_count_temp;
+    getline(cin, arr_count_temp);
 
-    int n = stoi(nk[0]);
+    int arr_count = stoi(ltrim(rtrim(arr_count_temp)));
 
-    int k = stoi(nk[1]);
+    string arr_temp_temp;
+    getline(cin, arr_temp_temp);
 
-    string bill_temp_temp;
-    getline(cin, bill_temp_temp);
+    vector<string> arr_temp = split(rtrim(arr_temp_temp));
 
-    vector<string> bill_temp = split(rtrim(bill_temp_temp));
+    vector<int> arr(arr_count);
 
-    vector<int> bill(n);
+    for (int i = 0; i < arr_count; i++) {
+        int arr_item = stoi(arr_temp[i]);
 
-    for (int i = 0; i < n; i++) {
-        int bill_item = stoi(bill_temp[i]);
-
-        bill[i] = bill_item;
+        arr[i] = arr_item;
     }
 
-    string b_temp;
-    getline(cin, b_temp);
+    int result = migratoryBirds(arr);
 
-    int b = stoi(ltrim(rtrim(b_temp)));
+    fout << result << "\n";
 
-    bonAppetit(bill, k, b);
+    fout.close();
 
     return 0;
 }

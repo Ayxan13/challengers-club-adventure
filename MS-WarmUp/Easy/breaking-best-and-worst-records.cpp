@@ -1,19 +1,25 @@
+// https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem
 #include <bits/stdc++.h>
 
 using namespace std;
 
 vector<string> split_string(string);
 
-// Complete the sockMerchant function below.
-int sockMerchant(int, vector<int> const &ar) noexcept {
-  int curr_cnt[100]{};
-  return count_if(ar.begin(), ar.end(), [&curr_cnt](int const clr) {
-    if (++curr_cnt[clr - 1] == 2) {
-      curr_cnt[clr - 1] = 0;
-      return true;
+// Complete the breakingRecords function below.
+vector<int> breakingRecords(vector<int> const& scores) {
+    int high{}, low{};
+    int max=scores[0], min=max;
+    for (auto const elm : scores) {
+        if (elm > max) {
+            max = elm;
+            ++high;
+        }
+        else if (elm < min) {
+            min = elm;
+            ++low;
+        }
     }
-    return false;
-  });
+    return {high, low};
 }
 
 int main()
@@ -24,22 +30,30 @@ int main()
     cin >> n;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-    string ar_temp_temp;
-    getline(cin, ar_temp_temp);
+    string scores_temp_temp;
+    getline(cin, scores_temp_temp);
 
-    vector<string> ar_temp = split_string(ar_temp_temp);
+    vector<string> scores_temp = split_string(scores_temp_temp);
 
-    vector<int> ar(n);
+    vector<int> scores(n);
 
     for (int i = 0; i < n; i++) {
-        int ar_item = stoi(ar_temp[i]);
+        int scores_item = stoi(scores_temp[i]);
 
-        ar[i] = ar_item;
+        scores[i] = scores_item;
     }
 
-    int result = sockMerchant(n, ar);
+    vector<int> result = breakingRecords(scores);
 
-    fout << result << "\n";
+    for (int i = 0; i < result.size(); i++) {
+        fout << result[i];
+
+        if (i != result.size() - 1) {
+            fout << " ";
+        }
+    }
+
+    fout << "\n";
 
     fout.close();
 

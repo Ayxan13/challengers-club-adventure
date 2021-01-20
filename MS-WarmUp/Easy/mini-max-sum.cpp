@@ -1,50 +1,33 @@
+// https://www.hackerrank.com/challenges/mini-max-sum/problem
 #include <bits/stdc++.h>
 
 using namespace std;
 
 vector<string> split_string(string);
 
-
-
-// Complete the kangaroo function below.
-string kangaroo(int const x1, int const v1, int const x2, int const v2) {
-    struct Kangaroo {
-        int x;
-        int v;   
-    } front{x1, v1}, back{x2, v2};
-    
-    if (front.x < back.x) swap(front, back);
-    
-    if (front.v > back.v) return "NO";
-    
-    int const df = front.x - back.x;
-    int const dv = back.v - front.v;
-    
-    return (!dv && df) || (df % dv) ? "NO" : "YES";
+// Complete the miniMaxSum function below.
+void miniMaxSum(vector<int> const& arr) {
+    auto const sum = accumulate(arr.cbegin(), arr.cend(), 0LL);
+    auto const [min, max] = minmax_element(arr.cbegin(), arr.cend());
+    printf("%lld %lld\n", sum - *max, sum - *min);
 }
 
 int main()
 {
-    ofstream fout(getenv("OUTPUT_PATH"));
+    string arr_temp_temp;
+    getline(cin, arr_temp_temp);
 
-    string x1V1X2V2_temp;
-    getline(cin, x1V1X2V2_temp);
+    vector<string> arr_temp = split_string(arr_temp_temp);
 
-    vector<string> x1V1X2V2 = split_string(x1V1X2V2_temp);
+    vector<int> arr(5);
 
-    int x1 = stoi(x1V1X2V2[0]);
+    for (int i = 0; i < 5; i++) {
+        int arr_item = stoi(arr_temp[i]);
 
-    int v1 = stoi(x1V1X2V2[1]);
+        arr[i] = arr_item;
+    }
 
-    int x2 = stoi(x1V1X2V2[2]);
-
-    int v2 = stoi(x1V1X2V2[3]);
-
-    string result = kangaroo(x1, v1, x2, v2);
-
-    fout << result << "\n";
-
-    fout.close();
+    miniMaxSum(arr);
 
     return 0;
 }

@@ -1,45 +1,47 @@
+// https://www.hackerrank.com/challenges/kangaroo/problem
 #include <bits/stdc++.h>
 
 using namespace std;
 
 vector<string> split_string(string);
 
-// Complete the divisibleSumPairs function below.
-int divisibleSumPairs(int, int const k, vector<int> const& ar) {
-    int count{};
-    for (int j = 1; j < ar.size(); ++j)
-        for (int i = 0; i < j; ++i)
-            count += !((ar[i]+ar[j]) % k);
-    return count;
+
+
+// Complete the kangaroo function below.
+string kangaroo(int const x1, int const v1, int const x2, int const v2) {
+    struct Kangaroo {
+        int x;
+        int v;   
+    } front{x1, v1}, back{x2, v2};
+    
+    if (front.x < back.x) swap(front, back);
+    
+    if (front.v > back.v) return "NO";
+    
+    int const df = front.x - back.x;
+    int const dv = back.v - front.v;
+    
+    return (!dv && df) || (df % dv) ? "NO" : "YES";
 }
 
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
 
-    string nk_temp;
-    getline(cin, nk_temp);
+    string x1V1X2V2_temp;
+    getline(cin, x1V1X2V2_temp);
 
-    vector<string> nk = split_string(nk_temp);
+    vector<string> x1V1X2V2 = split_string(x1V1X2V2_temp);
 
-    int n = stoi(nk[0]);
+    int x1 = stoi(x1V1X2V2[0]);
 
-    int k = stoi(nk[1]);
+    int v1 = stoi(x1V1X2V2[1]);
 
-    string ar_temp_temp;
-    getline(cin, ar_temp_temp);
+    int x2 = stoi(x1V1X2V2[2]);
 
-    vector<string> ar_temp = split_string(ar_temp_temp);
+    int v2 = stoi(x1V1X2V2[3]);
 
-    vector<int> ar(n);
-
-    for (int i = 0; i < n; i++) {
-        int ar_item = stoi(ar_temp[i]);
-
-        ar[i] = ar_item;
-    }
-
-    int result = divisibleSumPairs(n, k, ar);
+    string result = kangaroo(x1, v1, x2, v2);
 
     fout << result << "\n";
 

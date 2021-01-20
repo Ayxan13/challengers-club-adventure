@@ -1,32 +1,43 @@
+// https://www.hackerrank.com/challenges/plus-minus/problem
 #include <bits/stdc++.h>
 
 using namespace std;
 
 vector<string> split_string(string);
 
-// Complete the miniMaxSum function below.
-void miniMaxSum(vector<int> const& arr) {
-    auto const sum = accumulate(arr.cbegin(), arr.cend(), 0LL);
-    auto const [min, max] = minmax_element(arr.cbegin(), arr.cend());
-    printf("%lld %lld\n", sum - *max, sum - *min);
+// Complete the plusMinus function below.
+void plusMinus(vector<int> const& arr) {
+    double neg{}, zero{}, pos{};
+    for (auto const elm : arr)
+    {
+        neg += elm < 0;
+        zero += elm == 0;
+        pos += elm > 0;
+    }
+    int const sz = arr.size();
+    printf("%f\n%f\n%f\n", pos/sz, neg/sz, zero/sz);
 }
 
 int main()
 {
+    int n;
+    cin >> n;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
     string arr_temp_temp;
     getline(cin, arr_temp_temp);
 
     vector<string> arr_temp = split_string(arr_temp_temp);
 
-    vector<int> arr(5);
+    vector<int> arr(n);
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < n; i++) {
         int arr_item = stoi(arr_temp[i]);
 
         arr[i] = arr_item;
     }
 
-    miniMaxSum(arr);
+    plusMinus(arr);
 
     return 0;
 }

@@ -1,3 +1,4 @@
+// https://www.hackerrank.com/challenges/bon-appetit/problem
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -6,49 +7,42 @@ string ltrim(const string &);
 string rtrim(const string &);
 vector<string> split(const string &);
 
-// Complete the birthday function below.
-int birthday(vector<int> const& s, int const d, int const m) {
-    return count_if(&s[0], &s[s.size()-m+1], [d,m](int const& elm) {
-        return accumulate(&elm, &elm+m, 0) == d;
-    });
+// Complete the bonAppetit function below.
+void bonAppetit(vector<int> const& bill, int k, int b) {
+  printf((accumulate(bill.begin(), bill.end(), 0) - bill[k]) / 2 == b
+             ? "Bon Appetit\n": "%d\n", bill[k] / 2);
 }
 
 int main()
 {
-    ofstream fout(getenv("OUTPUT_PATH"));
+    string nk_temp;
+    getline(cin, nk_temp);
 
-    string n_temp;
-    getline(cin, n_temp);
+    vector<string> nk = split(rtrim(nk_temp));
 
-    int n = stoi(ltrim(rtrim(n_temp)));
+    int n = stoi(nk[0]);
 
-    string s_temp_temp;
-    getline(cin, s_temp_temp);
+    int k = stoi(nk[1]);
 
-    vector<string> s_temp = split(rtrim(s_temp_temp));
+    string bill_temp_temp;
+    getline(cin, bill_temp_temp);
 
-    vector<int> s(n);
+    vector<string> bill_temp = split(rtrim(bill_temp_temp));
+
+    vector<int> bill(n);
 
     for (int i = 0; i < n; i++) {
-        int s_item = stoi(s_temp[i]);
+        int bill_item = stoi(bill_temp[i]);
 
-        s[i] = s_item;
+        bill[i] = bill_item;
     }
 
-    string dm_temp;
-    getline(cin, dm_temp);
+    string b_temp;
+    getline(cin, b_temp);
 
-    vector<string> dm = split(rtrim(dm_temp));
+    int b = stoi(ltrim(rtrim(b_temp)));
 
-    int d = stoi(dm[0]);
-
-    int m = stoi(dm[1]);
-
-    int result = birthday(s, d, m);
-
-    fout << result << "\n";
-
-    fout.close();
+    bonAppetit(bill, k, b);
 
     return 0;
 }

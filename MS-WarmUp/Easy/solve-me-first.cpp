@@ -1,3 +1,4 @@
+// https://www.hackerrank.com/challenges/solve-me-first/problem
 #include <cmath>
 #include <cstdio>
 #include <vector>

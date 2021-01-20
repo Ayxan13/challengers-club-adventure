@@ -1,3 +1,4 @@
+// https://www.hackerrank.com/challenges/the-birthday-bar/problem
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -6,19 +7,11 @@ string ltrim(const string &);
 string rtrim(const string &);
 vector<string> split(const string &);
 
-/*
- * Complete the 'diagonalDifference' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts 2D_INTEGER_ARRAY arr as parameter.
- */
-
-int diagonalDifference(vector<vector<int>> arr) {
-    int res = 0;
-    for (size_t i = 0; i < arr.size(); ++i)
-        res += (arr[i][i] - arr[i][arr.size() - 1 - i]);
-    
-    return abs(res);
+// Complete the birthday function below.
+int birthday(vector<int> const& s, int const d, int const m) {
+    return count_if(&s[0], &s[s.size()-m+1], [d,m](int const& elm) {
+        return accumulate(&elm, &elm+m, 0) == d;
+    });
 }
 
 int main()
@@ -30,24 +23,29 @@ int main()
 
     int n = stoi(ltrim(rtrim(n_temp)));
 
-    vector<vector<int>> arr(n);
+    string s_temp_temp;
+    getline(cin, s_temp_temp);
+
+    vector<string> s_temp = split(rtrim(s_temp_temp));
+
+    vector<int> s(n);
 
     for (int i = 0; i < n; i++) {
-        arr[i].resize(n);
+        int s_item = stoi(s_temp[i]);
 
-        string arr_row_temp_temp;
-        getline(cin, arr_row_temp_temp);
-
-        vector<string> arr_row_temp = split(rtrim(arr_row_temp_temp));
-
-        for (int j = 0; j < n; j++) {
-            int arr_row_item = stoi(arr_row_temp[j]);
-
-            arr[i][j] = arr_row_item;
-        }
+        s[i] = s_item;
     }
 
-    int result = diagonalDifference(arr);
+    string dm_temp;
+    getline(cin, dm_temp);
+
+    vector<string> dm = split(rtrim(dm_temp));
+
+    int d = stoi(dm[0]);
+
+    int m = stoi(dm[1]);
+
+    int result = birthday(s, d, m);
 
     fout << result << "\n";
 
