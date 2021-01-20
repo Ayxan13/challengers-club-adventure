@@ -1,0 +1,2 @@
+# Problems marked medium from [here](https://www.hackerrank.com/domains/algorithms?badge_type=problem-solving&filters%5Bdifficulty%5D%5B%5D=medium)
+
